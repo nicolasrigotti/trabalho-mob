@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mundo dos Jogos</title>
+    <style>
+        /* Reset básico e estilos gerais */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #0f0f1a;
+            color: #f0f0f0;
+            line-height: 1.6;
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        /* Cabeçalho */
+        header {
+            background: linear-gradient(135deg, #2a2a57 0%, #0c0c21 100%);
+            padding: 20px 0;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #6e57e0;
+            text-decoration: none;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            margin-left: 25px;
+        }
+        
+        .nav-links a {
+            color: #f0f0f0;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        .nav-links a:hover {
+            color: #6e57e0;
+        }
+        
+        /* Menu Hambúrguer */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            padding: 5px;
+        }
+        
+        .hamburger span {
+            height: 3px;
+            width: 25px;
+            background: #f0f0f0;
+            margin-bottom: 5px;
+            border-radius: 2px;
+            transition: all 0.3s ease;
+        }
+        
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+        
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+        
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -6px);
+        }
+        
+        /* Banner principal */
+        .hero {
+       
+        }
+        
+        .hero::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(15, 15, 26, 0.7);
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            padding: 0 20px;
+            max-width: 700px;
+        }
+        
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            color: #ffffff;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+        }
+        
+        .btn {
+            display: inline-block;
+            background: #6e57e0;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background 0.3s, transform 0.2s;
+        }
+        
+        .btn:hover {
+            background: #5743c4;
+            transform: translateY(-3px);
+        }
+        
+        /* Seções de conteúdo */
+        section {
+            padding: 60px 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 40px;
+            color: #6e57e0;
+            font-size: 2.2rem;
+        }
+        
+        /* Jogos em Destaque */
+        .games-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+        }
+        
+        .game-card {
+            background: #1a1a2e;
+            border-radius: 10px;
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .game-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+        }
+        
+        .game-card img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+        }
+        
+        .game-info {
+            padding: 20px;
+        }
+        
+        .game-info h3 {
+            margin-bottom: 10px;
+            color: #f0f0f0;
+        }
+        
+        .game-info p {
+            color: #a0a0a0;
+            margin-bottom: 15px;
+            font-size: 0.9rem;
+        }
+        
+        /* Categorias */
+        .categories {
+            background: #1a1a2e;
+        }
+        
+        .categories-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+        }
+        
+        .category {
+            background: #252547;
+            padding: 15px 25px;
+            border-radius: 30px;
+            transition: background 0.3s, transform 0.2s;
+            cursor: pointer;
+        }
+        
+        .category:hover {
+            background: #6e57e0;
+            transform: scale(1.05);
+        }
+        
+        /* Notícias */
+        .news-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+        }
+        
+        .news-card {
+            background: #1a1a2e;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        
+        .news-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        
+        .news-content {
+            padding: 20px;
+        }
+        
+        .news-content h3 {
+            margin-bottom: 10px;
+        }
+        
+        .news-content p {
+            color: #a0a0a0;
+            margin-bottom: 15px;
+        }
+        
+        .news-date {
+            color: #6e57e0;
+            font-size: 0.9rem;
+        }
+        
+        /* Rodapé */
+        footer {
+            background: #0a0a14;
+            padding: 40px 0 20px;
+            text-align: center;
+        }
+        
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 20px;
+            margin: 20px 0;
+        }
+        
+        .social-links a {
+            color: #f0f0f0;
+            font-size: 1.5rem;
+            transition: color 0.3s;
+        }
+        
+        .social-links a:hover {
+            color: #6e57e0;
+        }
+        
+        .copyright {
+            margin-top: 20px;
+            color: #6e57e0;
+            font-size: 0.9rem;
+        }
+        
+        /* Responsividade */
+        @media (max-width: 768px) {
+            .hamburger {
+                display: flex;
+            }
+            
+            .nav-links {
+                position: fixed;
+                top: 80px;
+                right: -100%;
+                width: 70%;
+                height: calc(100vh - 80px);
+                background: linear-gradient(135deg, #2a2a57 0%, #0c0c21 100%);
+                flex-direction: column;
+                align-items: center;
+                justify-content: flex-start;
+                padding-top: 40px;
+                transition: right 0.3s ease;
+                box-shadow: -5px 0 15px rgba(0, 0, 0, 0.3);
+            }
+            
+            .nav-links.active {
+                right: 0;
+            }
+            
+            .nav-links li {
+                margin: 15px 0;
+            }
+            
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+            
+            .games-grid, .news-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <nav>
+                <a href="#" class="logo">GameWorld</a>
+                <div class="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+                <ul class="nav-links">
+                    <li><a href="#">Início</a></li>
+                    <li><a href="#destaques">Destaques</a></li>
+                    <li><a href="#categorias">Categorias</a></li>
+                    <li><a href="#noticias">Notícias</a></li>
+                    <li><a href="#sobre">Sobre</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Descubra o Universo dos Games</h1>
+            <p>Notícias, análises e tudo sobre o mundo dos jogos em um só lugar. Fique por dentro das novidades e descubra seus próximos jogos favoritos.</p>
+            <a href="#destaques" class="btn">Explorar Jogos</a>
+        </div>
+    </section>
+
+    <section id="destaques">
+        <div class="container">
+            <h2 class="section-title">Jogos em Destaque</h2>
+            <div class="games-grid">
+                <div class="game-card">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcStX-OuQcD75bhu6orIM1HcQNZG59CFOA4-Zw&s" alt="Cyberpunk 2077">
+                    <div class="game-info">
+                        <h3>Cyberpunk 2077</h3>
+                        <p>Um RPG de ação e aventura em mundo aberto situado em Night City, uma megalópole obcecada por poder, glamour e modificações corporais.</p>
+                        <a href="#" class="btn">Ver Detalhes</a>
+                    </div>
+                </div>
+                
+                <div class="game-card">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQlZ22k-2pGe23Ba1ti6G8WTqO--Rj6pcA1bA&s" alt="The Last of Us Part II">
+                    <div class="game-info">
+                        <h3>The Last of Us Part II</h3>
+                        <p>Continue a jornada emocionante de Ellie em uma experiência intensa sobre ódio e vingança em um mundo pós-apocalíptico.</p>
+                        <a href="#" class="btn">Ver Detalhes</a>
+                    </div>
+                </div>
+                
+                <div class="game-card">
+                    <img src="https://s2-ge.glbimg.com/Mn4MpbfOftUzZYusjMjY6ucisp4=/0x0:1920x1080/984x0/smart/filters:strip_icc()/i.s3.glbimg.com/v1/AUTH_bc8228b6673f488aa253bbcb03c80ec5/internal_photos/bs/2023/b/d/MsAo0RQq25hzLuK95lew/r6-thumb.jpg" alt="R6">
+                    <div class="game-info">
+                        <h3>Rainbow Six Siege</h3>
+                        <p>Jogo focado no FPS, contendo dois times que uma ataca a bomba e outro defende.</p>
+                        <a href="#" class="btn">Ver Detalhes</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="categorias" class="categories">
+        <div class="container">
+            <h2 class="section-title">Categorias Populares</h2>
+            <div class="categories-container">
+                <div class="category">Ação</div>
+                <div class="category">Aventura</div>
+                <div class="category">RPG</div>
+                <div class="category">FPS</div>
+                <div class="category">Esportes</div>
+                <div class="category">Estratégia</div>
+                <div class="category">Indie</div>
+                <div class="category">Simulação</div>
+            </div>
+        </div>
+    </section>
+
+    <section id="noticias">
+        <div class="container">
+            <h2 class="section-title">Últimas Notícias</h2>
+            <div class="news-container">
+                <div class="news-card">
+                    <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Novo console">
+                    <div class="news-content">
+                        <span class="news-date">12 de Outubro, 2023</span>
+                        <h3>Novo Console Revolucionário é Anunciado</h3>
+                        <p>A próxima geração de consoles promete gráficos em 8K e tempos de carregamento praticamente inexistentes.</p>
+                        <a href="#" class="btn">Ler Mais</a>
+                    </div>
+                </div>
+                
+                <div class="news-card">
+                    <img src="https://images.unsplash.com/photo-1542751371-653c5fe49db4?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Jogo indie">
+                    <div class="news-content">
+                        <span class="news-date">8 de Outubro, 2023</span>
+                        <h3>Jogo Indie Surpreende e Conquista Críticos</h3>
+                        <p>Desenvolvido por uma pequena equipe, este jogo independente está recebendo elogios da crítica especializada.</p>
+                        <a href="#" class="btn">Ler Mais</a>
+                    </div>
+                </div>
+                
+                <div class="news-card">
+                    <img src="https://images.unsplash.com/photo-1511512578047-dfb367046420?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Campeonato de eSports">
+                    <div class="news-content">
+                        <span class="news-date">3 de Outubro, 2023</span>
+                        <h3>Maior Campeonato de eSports Anuncia Prêmio Recorde</h3>
+                        <p>O torneio internacional terá o maior prêmio da história, ultrapassando a marca de 30 milhões de dólares.</p>
+                        <a href="#" class="btn">Ler Mais</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <a href="#" class="logo">GameWorld</a>
+                <p>Seu portal completo sobre o universo dos games</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook">f</i></a>
+                    <a href="#"><i class="fab fa-twitter">t</i></a>
+                    <a href="#"><i class="fab fa-instagram">i</i></a>
+                    <a href="#"><i class="fab fa-youtube">y</i></a>
+                </div>
+                <p class="copyright">&copy; 2023 GameWorld - Todos os direitos reservados</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // JavaScript para o menu hambúrguer
+        document.addEventListener('DOMContentLoaded', function() {
+            const hamburger = document.querySelector('.hamburger');
+            const navLinks = document.querySelector('.nav-links');
+            
+            // Alternar menu hambúrguer
+            hamburger.addEventListener('click', function() {
+                this.classList.toggle('active');
+                navLinks.classList.toggle('active');
+            });
+            
+            // Fechar menu ao clicar em um link
+            document.querySelectorAll('.nav-links a').forEach(link => {
+                link.addEventListener('click', function() {
+                    hamburger.classList.remove('active');
+                    navLinks.classList.remove('active');
+                });
+            });
+            
+            // Efeito de digitação no título principal
+            const heroTitle = document.querySelector('.hero h1');
+            const originalText = heroTitle.textContent;
+            heroTitle.textContent = '';
+            
+            let i = 0;
+            function typeWriter() {
+                if (i < originalText.length) {
+                    heroTitle.textContent += originalText.charAt(i);
+                    i++;
+                    setTimeout(typeWriter, 100);
+                }
+            }
+            
+            // Inicia o efeito de digitação
+            setTimeout(typeWriter, 500);
+            
+            // Animação de scroll suave para links internos
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    if (targetId === '#') return;
+                    
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 80,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+            
+            // Adiciona classe ativa ao item do menu conforme a rolagem
+            window.addEventListener('scroll', function() {
+                const sections = document.querySelectorAll('section');
+                const navLinks = document.querySelectorAll('.nav-links a');
+                
+                let current = '';
+                
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    const sectionHeight = section.clientHeight;
+                    
+                    if (pageYOffset >= (sectionTop - 100)) {
+                        current = section.getAttribute('id');
+                    }
+                });
+                
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href') === `#${current}`) {
+                        link.classList.add('active');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
